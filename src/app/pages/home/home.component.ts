@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgFor } from '@angular/common';
+import { EventCardComponent } from '../event-card/event-card.component';
 
 @Component({
   selector: 'app-home',
-  imports: [ NgFor],
+  imports: [ NgFor, EventCardComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
