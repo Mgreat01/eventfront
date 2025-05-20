@@ -18,21 +18,47 @@
     </button>
 </div>
 
+<section class="py-8 bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800 text-white">
+    <div
+        class="w-[800px] mx-auto px-6 flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+        <div>
+            <h3 class="text-2xl font-bold mb-2">Découvrez nos offres exclusives !</h3>
+            <p class="text-lg max-w-md">Profitez de réductions sur les billets pour vos événements préférés. Ne manquez
+                pas nos promotions limitées dans le temps.</p>
+        </div>
+        <a href="#"
+            class="bg-white text-purple-700 font-semibold px-6 py-3 rounded-lg hover:bg-gray-100 transition shadow-lg">
+            Voir les offres
+        </a>
+    </div>
+</section>
+
 <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto dark:bg-gray-900">
-    <div class="max-w-2x1 mx-auto text-center mb-0 lg:mb-14">
+    <div class="max-w-2x1 mx-auto text-center mb-0 lg:mb-7">
         <h2 class="text-2x1 text-purple-600 font-bold md:text-4xl md:leading-tight">Events</h2>
         <p class="mt-1 text-teal-500"> Trouvez des événements qui pouraient vous intérressez </p>
     </div>
     <div class="flex flex-row gap-4 p-4">
       <app-event-card [image]="event" *ngFor="let event of images"></app-event-card> 
     </div>
+    <div class="flex flex-row gap-4 p-4">
+      <app-event-card [image]="event" *ngFor="let event of images"></app-event-card> 
+    </div>
 </div>
 <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto dark:bg-gray-900">
-    <div class="max-w-2x1 mx-auto text-center mb-0 lg:mb-14">
+    <div class="max-w-2x1 mx-auto text-center mb-0 lg:mb-7">
         <h2 class="text-2x1 text-purple-600 font-bold md:text-4xl md:leading-tight">Catégories</h2>
         <p class="mt-1 text-teal-500"> Trouvez des événements associés à vos centres d'intérets </p>
     </div>
-    <div class="flex flex-row gap-4 p-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
       <app-category-card [name]="category" *ngFor="let category of categories"></app-category-card>
     </div>
 </div>
+
+<section class="py-8 bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800 text-white">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold mb-4">Prêt à créer votre événement ?</h2>
+      <p class="text-xl mb-8 max-w-2xl mx-auto">Rejoignez des milliers d'organisateurs qui utilisent EventSpot pour promouvoir leurs événements et connecter avec leur public.</p>
+      <a href="create-event.html" class="bg-white text-purple-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition inline-block">Créer un événement</a>
+    </div>
+</section>
