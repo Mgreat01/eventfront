@@ -7,13 +7,13 @@
 <!-- * * * * * * * to get started with your project! * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
+<app-navbar *ngIf="asNavbar"></app-navbar>
 
-
-<main>
- 
-
+<main class="bg-gray-50 justify-center dark:bg-gray-900">
+  <router-outlet />
 </main>
 
+<app-footer *ngIf="asNavbar"></app-footer>
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * * -->
@@ -23,4 +23,4 @@
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
 
-<router-outlet />
+
