@@ -1,0 +1,13 @@
+import { Component, inject, Input } from '@angular/core';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-event-card',
+  imports: [],
+  templateUrl: './event-card.component.html',
+  styleUrl: './event-card.component.css'
+})
+export class EventCardComponent {
+   router: Router = inject(Router);
+   @Input() image: any;
+}
