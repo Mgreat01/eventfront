@@ -68,4 +68,21 @@ export class UserService {
   isLoggedIn(): boolean {
     return !!this.getToken();
   }
+
+  forgotPassword(email: string) {
+    return this.http.post<any>(`${this.apiUrl}/forgot-password`, { email });
+  }
+  
+  resetPassword(token: string, newPassword: string) {
+    const payload = {
+      token: token,
+      password: newPassword
+    };
+  
+    return this.http.post(`${this.apiUrl}/reset-password`, payload);
+  }
+  getUserById(id: string) {
+    return this.http.get<any>(`${this.apiUrl}/users/${id}`);
+  }  
+  
 }
