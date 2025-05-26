@@ -9,8 +9,10 @@
 
 <app-navbar *ngIf="asNavbar"></app-navbar>
 
-<main class="max-w-[1080px] p-[40px] bg-gray-50 justify-center dark:bg-gray-900">
-  <router-outlet />
+<main class="px-[50px] bg-white dark:bg-gray-900 items-center justify-center">
+  <div class="max-w-[1024px] bg-white dark:bg-gray-900">
+    <router-outlet />
+  </div>
 </main>
 
 <app-footer *ngIf="asNavbar"></app-footer>
