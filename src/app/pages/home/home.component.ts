@@ -17,7 +17,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   ];
 
   categories = [
-    'Musique', 'Société', 'Histoire', 'Littérature', 'Religion', 'Philosophie'
+    'Musique', 'Société', 'Histoire', 'Littérature', 'Religion',
+    'Philosophie', 'Sciences', 'Technologies', 'Investissement', 'Startup'
   ];
 
   currentIndex = 0;
