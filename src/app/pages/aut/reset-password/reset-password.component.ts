@@ -30,33 +30,37 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.token = this.route.snapshot.queryParamMap.get('token') || '';
+  this.token = this.route.snapshot.queryParamMap.get('token') || '';
+  const emailParam = this.route.snapshot.queryParamMap.get('email');
+  if (emailParam) {
+    this.resetPasswordForm.addControl('email', this.fb.control(emailParam, [Validators.required, Validators.email]));
+  }
+}
+
+onSubmit() {
+  if (this.resetPasswordForm.invalid) return;
+
+  const { email, password, confirmPassword } = this.resetPasswordForm.value;
+
+  if (password !== confirmPassword) {
+    this.error = 'Les mots de passe ne correspondent pas.';
+    return;
   }
 
-  onSubmit() {
-    if (this.resetPasswordForm.invalid) return;
+  this.isLoading = true;
+  this.error = '';
+  this.message = '';
 
-    const { password, confirmPassword } = this.resetPasswordForm.value;
-
-    if (password !== confirmPassword) {
-      this.error = 'Les mots de passe ne correspondent pas.';
-      return;
+  this.authService.resetPassword(this.token, email, password, confirmPassword).subscribe({
+    next: (res: any) => {
+      this.message = res.status || 'Mot de passe réinitialisé avec succès.';
+      this.isLoading = false;
+      setTimeout(() => this.router.navigate(['/login']), 2500);
+    },
+    error: (err) => {
+      this.error = err.error?.message || 'Une erreur est survenue.';
+      this.isLoading = false;
     }
-
-    this.isLoading = true;
-    this.error = '';
-    this.message = '';
-
-    this.authService.resetPassword(this.token, password).subscribe({
-      next: (res: any) => {
-        this.message = res.message || 'Mot de passe réinitialisé avec succès.';
-        this.isLoading = false;
-        setTimeout(() => this.router.navigate(['/login']), 2500);
-      },
-      error: (err) => {
-        this.error = err.error?.message || 'Une erreur est survenue.';
-        this.isLoading = false;
-      }
-    });
-  }
+  });
+}
 }
