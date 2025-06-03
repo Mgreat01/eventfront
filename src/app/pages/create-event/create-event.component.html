@@ -110,6 +110,57 @@
               </option>
             </select>
           </div>
+          <!-- Dans l'étape 1 (basicInfo) -->
+
+  <div class="mb-6" *ngIf="step === 1">
+  <label class="block text-sm font-medium text-gray-700 mb-1">
+    Localisation en RDC *
+  </label>
+
+  <!-- Supprimez le formGroupName="basicInfo" ici -->
+  <div formGroupName="location" class="flex flex-col gap-2">
+    <div class="flex gap-2 mb-2 relative">
+      <input
+        formControlName="address"
+        placeholder="Ex: Gombe, Kinshasa"
+        class="flex-1 px-4 py-2 border border-gray-300 rounded-lg"
+        (input)="onAddressInput($event)"
+        (focus)="onAddressFocus()"
+        (blur)="onAddressBlur()"
+      />
+      <button
+        type="button"
+        (click)="geocodeAddress()"
+        class="bg-blue-600 text-white px-4 py-2 rounded-lg"
+      >
+        Localiser
+      </button>
+
+      <!-- Suggestions -->
+      <ul
+        *ngIf="showSuggestions && addressInputFocused"
+        class="absolute z-10 top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-auto"
+      >
+        <li
+          *ngFor="let suggestion of addressSuggestions"
+          class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+          (mousedown)="selectSuggestion(suggestion)"
+        >
+          {{ suggestion.display_name || suggestion.name }}
+        </li>
+      </ul>
+    </div>
+
+    <!-- Carte -->
+    <div id="map" style="height: 400px; width: 100%; border: 1px solid #ddd;"></div>
+
+    <!-- Champs cachés -->
+    <input type="hidden" formControlName="lat" />
+    <input type="hidden" formControlName="lng" />
+  </div>
+</div>
+
+
           <!-- <div class="mb-6">
                         <label class="block text-sm font-medium text-gray-700 mb-1">Type d'événement *</label>
                         <div class="flex space-x-4">
@@ -143,6 +194,11 @@
             >
             <quill-editor formControlName="description"></quill-editor>
           </div>
+
+          <!-- Dans l'étape 1 (basicInfo) -->
+
+
+
           <div class="flex justify-between mt-8">
             <button
               type="button"
@@ -150,7 +206,7 @@
               class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg"
             >
               Précédent
-            </button>z
+            </button>
             <button
               type="button"
               (click)="nextStep()"
