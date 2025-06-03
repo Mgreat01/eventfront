@@ -1,3 +1,7 @@
+import { Category } from "./category";
+import { Ticket } from "./ticket";
+import { UserSearch } from "./user";
+
 export interface Event {
   basicInfo: {
     title: string;
