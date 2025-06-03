@@ -3,16 +3,20 @@ import { Ticket } from "./ticket";
 import { UserSearch } from "./user";
 
 export interface Event {
-
-     basicInfo: {
+  basicInfo: {
     title: string;
     category_ids: string[];
+    location: {
+      address: string;
+      lat: number;  
+      lng: number;  
+    };
   };
   details: {
     description: string;
   };
   tickets: {
-    ticketTypes: string[];
+    ticketTypes: string[]; 
     date_time_start: Date;
     date_time_end: Date;
   };
