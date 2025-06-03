@@ -1,124 +1,157 @@
 <section class="w-full max-w-[800px] mx-auto p-5 h-full bg-white dark:bg-gray-900 sm:px-4 sm:items-start sm:justify-start">
     <!-- searchbar -->
-    <form class="max-w-md mx-auto p-2 justify-start items-start relative">
-    <div class="flex ">
-        <!-- Bouton Filtrer -->
-        <div class="relative">
-        <button id="dropdown-button-2" (click)="toggleDropdown()" type="button"
-            class="shrink-0 z-10 inline-flex items-center py-2 px-2 text-xs font-medium text-gray-500 bg-gray-100 border border-purple-600 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600">
-            Filtrer
-            <svg class="w-2.5 h-2.5 ms-2.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="m1 1 4 4 4-4" />
-            </svg>
-        </button>
+    <form (submit)="submit($event)" class="max-w-md mx-auto p-2 justify-start items-start relative">
+      <div class="flex ">
+          <!-- Bouton Filtrer -->
+          <div class="relative">
+            <button id="dropdown-button-2" (click)="toggleDropdown()" type="button"
+                class="shrink-0 z-10 inline-flex items-center py-2 px-2 text-xs font-medium text-gray-500 bg-gray-100 border border-purple-600 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600">
+                Filtrer
+                <svg class="w-2.5 h-2.5 ms-2.5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m1 1 4 4 4-4" />
+                </svg>
+            </button>
 
-        <!-- Menu Filtre -->
-        <div *ngIf="isOpenDropDown"
-            class="absolute left-0 mt-2 w-60 bg-white border border-gray-200 rounded-lg shadow-lg z-20 dark:bg-gray-800 dark:border-gray-700">
-            <div class="p-4">
-            <h3 class="text-xs font-medium text-gray-900 dark:text-white mb-2">Filtres avancés</h3>
-            <div class="grid grid-cols-1 gap-1">
-                <!-- Type -->
-                <div>
-                <label for="type" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Catégories</label>
-                <select id="type" class="mt-1 mx-auto px-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-600 text-xs text-gray-500  dark:text-gray-400 focus:ring-purple-600 sm:text-xs dark:bg-gray-700 dark:border-gray-600">
-                    <option class="m-2 text-xs text-gray-500  dark:text-gray-400">Tout</option>
-                    <option class="m-2 text-xs text-gray-500  dark:text-gray-400">Concert</option>
-                    <option class="m-2 text-xs text-gray-500  dark:text-gray-400">Festival</option>
-                    <option class="m-2 text-xs text-gray-500  dark:text-gray-400">Conférence</option>
-                </select>
+            <!-- Menu Filtre -->
+            <div *ngIf="isOpenDropDown"
+                class="absolute left-0 mt-2 w-60 bg-white border border-gray-200 rounded-lg shadow-lg z-20 dark:bg-gray-800 dark:border-gray-700">
+                <div class="p-4">
+                <h3 class="text-xs font-medium text-gray-900 dark:text-white mb-2">Filtres avancés</h3>
+                <div class="grid grid-cols-1 gap-1">
+                    <!-- Type -->
+                    <div>
+                    <label for="type" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Catégories</label>
+                    <select id="type" class="mt-1 mx-auto px-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-600 text-xs text-gray-500  dark:text-gray-400 focus:ring-purple-600 sm:text-xs dark:bg-gray-700 dark:border-gray-600">
+                        <option class="m-2 text-xs text-gray-500  dark:text-gray-400">Tout</option>
+                        <option class="m-2 text-xs text-gray-500  dark:text-gray-400">Concert</option>
+                        <option class="m-2 text-xs text-gray-500  dark:text-gray-400">Festival</option>
+                        <option class="m-2 text-xs text-gray-500  dark:text-gray-400">Conférence</option>
+                    </select>
+                    </div>
+                    <!-- Type -->
+                    <div>
+                    <label for="type" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Organisateur</label>
+                    <select id="type" class="mt-1 block w-full px-1 mx-auto rounded-md border-gray-300 shadow-sm focus:border-purple-600 m-2 text-xs text-gray-500  dark:text-gray-400 focus:ring-purple-600 sm:text-xs dark:bg-gray-700 dark:border-gray-600">
+                        <option class="m-2 text-xs text-gray-500  dark:text-gray-400">Tout</option>
+                        <option class="m-2 text-xs text-gray-500  dark:text-gray-400">Concert</option>
+                        <option class="m-2 text-xs text-gray-500  dark:text-gray-400">Festival</option>
+                        <option class="m-2 text-xs text-gray-500  dark:text-gray-400">Conférence</option>
+                    </select>
+                    </div>
+                    <!-- Date -->
+                    <div>
+                    <label for="date" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Date</label>
+                    <input type="date" id="date" class="mt-1 block w-full px-1 mx-auto rounded-md border-gray-300 shadow-sm focus:border-purple-600 m-2 text-xs text-gray-500  dark:text-gray-400 focus:ring-purple-600 sm:text-xs dark:bg-gray-700 dark:border-gray-600"  />
+                    </div>
+                    <!-- Prix -->
+                    <div>
+                    <label for="type" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Prix (fc)</label>
+                    <select id="type" class="mt-1 block w-full px-1 mx-auto rounded-md border-gray-300 shadow-sm focus:border-purple-600 m-2 text-xs text-gray-500  dark:text-gray-400 focus:ring-purple-600 sm:text-xs dark:bg-gray-700 dark:border-gray-600">
+                        <option class="m-2 text-xs text-gray-500  dark:text-gray-400">gratuit</option>
+                        <option class="m-2 text-xs text-gray-500  dark:text-gray-400">>5000</option>
+                        <option class="m-2 text-xs text-gray-500  dark:text-gray-400">>20000</option>
+                        <option class="m-2 text-xs text-gray-500  dark:text-gray-400">>50000</option>
+                        <option class="m-2 text-xs text-gray-500  dark:text-gray-400">>100000</option>
+                    </select>
+                    </div>
                 </div>
-                <!-- Type -->
-                <div>
-                <label for="type" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Organisateur</label>
-                <select id="type" class="mt-1 block w-full px-1 mx-auto rounded-md border-gray-300 shadow-sm focus:border-purple-600 m-2 text-xs text-gray-500  dark:text-gray-400 focus:ring-purple-600 sm:text-xs dark:bg-gray-700 dark:border-gray-600">
-                    <option class="m-2 text-xs text-gray-500  dark:text-gray-400">Tout</option>
-                    <option class="m-2 text-xs text-gray-500  dark:text-gray-400">Concert</option>
-                    <option class="m-2 text-xs text-gray-500  dark:text-gray-400">Festival</option>
-                    <option class="m-2 text-xs text-gray-500  dark:text-gray-400">Conférence</option>
-                </select>
+                <div class="mt-4 flex justify-end gap-2">
+                    <button (click)="resetFilters()" class=" m-2 text-white  bg-purple-600 hover:bg-teal-500 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-purple-600 dark:hover:bg-teal-600 dark:focus:ring-purple-600">Reset</button>
+                    <button class=" m-2 text-white  bg-purple-600 hover:bg-teal-500 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-purple-600 dark:hover:bg-teal-600 dark:focus:ring-purple-600">Apply</button>
                 </div>
-                <!-- Date -->
-                <div>
-                <label for="date" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Date</label>
-                <input type="date" id="date" class="mt-1 block w-full px-1 mx-auto rounded-md border-gray-300 shadow-sm focus:border-purple-600 m-2 text-xs text-gray-500  dark:text-gray-400 focus:ring-purple-600 sm:text-xs dark:bg-gray-700 dark:border-gray-600"  />
-                </div>
-                <!-- Prix -->
-                <div>
-                <label for="type" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Prix (fc)</label>
-                <select id="type" class="mt-1 block w-full px-1 mx-auto rounded-md border-gray-300 shadow-sm focus:border-purple-600 m-2 text-xs text-gray-500  dark:text-gray-400 focus:ring-purple-600 sm:text-xs dark:bg-gray-700 dark:border-gray-600">
-                    <option class="m-2 text-xs text-gray-500  dark:text-gray-400">gratuit</option>
-                    <option class="m-2 text-xs text-gray-500  dark:text-gray-400">>5000</option>
-                    <option class="m-2 text-xs text-gray-500  dark:text-gray-400">>20000</option>
-                    <option class="m-2 text-xs text-gray-500  dark:text-gray-400">>50000</option>
-                    <option class="m-2 text-xs text-gray-500  dark:text-gray-400">>100000</option>
-                </select>
                 </div>
             </div>
-            <div class="mt-4 flex justify-end gap-2">
-                <button (click)="resetFilters()" class=" m-2 text-white  bg-purple-600 hover:bg-teal-500 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-purple-600 dark:hover:bg-teal-600 dark:focus:ring-purple-600">Reset</button>
-                <button class=" m-2 text-white  bg-purple-600 hover:bg-teal-500 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-purple-600 dark:hover:bg-teal-600 dark:focus:ring-purple-600">Apply</button>
-            </div>
-            </div>
-        </div>
-        </div>
+          </div>
 
-        <!-- Input de recherche -->
-        <div class="relative w-full">
-        <input type="search" id="location-search"
-            class="block p-2.5 w-full z-20 py-2 px-2 text-xs text-gray-900 bg-gray-50 border border-purple-600 rounded-e-lg border-s-0 focus:ring-purple-600 focus:border-purple-600 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-purple-600"
-            placeholder="Search for city or address" required />
-        <button type="submit"
-            class="absolute top-0 end-0 h-full p-2.5 text-sm font-medium text-white bg-purple-600 rounded-e-lg border border-purple-600 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
-            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-            </svg>
-            <span class="sr-only">Search</span>
-        </button>
-        </div>
-    </div>
+          <!-- Input de recherche -->
+          <div class="relative w-full">
+            <input [formControl]="searchForm" type="search" id="location-search"
+                class="block p-2.5 w-full z-20 py-2 px-2 text-xs text-gray-900 bg-gray-50 border border-purple-600 rounded-e-lg border-s-0 focus:ring-purple-600 focus:border-purple-600 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-purple-600"
+                placeholder="Search for city or address"  required />
+            <button type="submit" class="absolute top-0 end-0 h-full p-2.5 text-sm font-medium text-white bg-purple-600 rounded-e-lg border border-purple-600 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-300 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-800">
+                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                </svg>
+                <span class="sr-only">Search</span>
+            </button>
+          </div>
+      </div>
     </form>
     <!-- Liste des résultats -->
     <div class="w-full justify-center p-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
-        
-        <div class="w-full mb-2 items-center justify-center divide-y divide-gray-200 dark:divide-gray-700">
-            <app-search-card [image]="image" *ngFor="let image of images"></app-search-card>
+        <div class="flex flex-col items-center border-b border-gray-200 pb-2 dark:border-gray-600">
+          <form class="flex items-center space-x-2">
+            <label for="size" class="text-xs font-medium text-gray-700 dark:text-gray-300">
+              <span class="text-sm text-gray-700 dark:text-gray-400"> Afficher les résultats par groupe de </span>
+            </label>
+            <select id="size" [formControl]="perPage"
+              class="mt-0 px-2 rounded-md border border-gray-300 shadow-sm focus:border-purple-600 text-xs text-gray-500 dark:text-gray-400 focus:ring-purple-600 dark:bg-gray-700 dark:border-gray-500">
+              <option [value]="5" class="text-xs text-gray-500 dark:text-gray-400">5</option>
+              <option [value]="10" class="text-xs text-gray-500 dark:text-gray-400">10</option>
+              <option [value]="20" class="text-xs text-gray-500 dark:text-gray-400">20</option>
+              <option [value]="50" class="text-xs text-gray-500 dark:text-gray-400">50</option>
+            </select>
+          </form>
+
         </div>
-        <nav aria-label="w-full  Page navigation example">
+        <div *ngIf="!errorCatch" class="w-full mb-2 items-center justify-center divide-y divide-gray-200 dark:divide-gray-700">
+            <app-search-card [event]="event" *ngFor="let event of events | paginate: { itemsPerPage: perPage.value ?? 10, currentPage: currentPage}"></app-search-card>
+        </div>
+        <div *ngIf="errorCatch" class="w-full mb-2 items-center justify-center divide-y divide-gray-200 dark:divide-gray-700">
+          <section *ngIf="errorCatch" class="bg-white dark:bg-gray-900">
+            <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+              <div class="mx-auto max-w-screen-sm text-center">
+                <h1 class="mb-4 text-7xl tracking-tight font-extrabold lg:text-9xl text-purple-600 dark:text-purple-500">404
+                </h1>
+                <p class="mb-4 text-3xl tracking-tight font-bold text-gray-900 md:text-4xl dark:text-white">Something's missing.
+                </p>
+                <p class="mb-4 text-lg font-light text-gray-500 dark:text-gray-400">Sorry, we can't find that page. You'll find
+                  lots to explore on the home page. </p>
+                <a href="#"
+                  class="inline-flex text-teal-500 bg-primary-600 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:focus:ring-primary-900 my-4">Back
+                  to Homepage</a>
+              </div>
+            </div>
+          </section>
+        </div>
+        <nav *ngIf="!errorCatch" aria-label="w-full  Page navigation example">
             <ul class="flex justify-center items-center -space-x-px h-8 text-sm">
-                <li>
-                <a href="#" class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                <li  *ngIf="this.pageUrl.prev != null">
+                <a (click)="goToPage(pagination.links[this.pagination.current_page - 1].url)" class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                     <span class="sr-only">Previous</span>
                     <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
                     </svg>
                 </a>
                 </li>
-                <li>
-                <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">start</a>
+                <li *ngIf="pageUrl.first !== null">
+                <a (click)="goToPage(pageUrl.first)" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"> Start </a>
+                </li>
+                <li *ngIf="this.pageUrl.prev != null">
+                <a (click)="goToPage(pagination.links[this.pagination.current_page-1].url)" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                  {{ this.pagination.current_page-1 }} </a>
+                </li>
+                <li *ngIf="pagination.links.length >= 2">
+                <a (click)="goToPage(pagination.links[this.pagination.current_page].url)" class="z-10 flex items-center justify-center px-3 h-8 leading-tight text-purple-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-purple-600 dark:border-gray-700 dark:bg-gray-700 dark:text-purple-600">
+                  {{ this.pagination.current_page }} </a>
+                </li>
+                <li *ngIf="this.pageUrl.next != null">
+                <a (click)="goToPage(pagination.links[this.pagination.current_page+1].url)" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                  {{ this.pagination.current_page+1 }} </a>
                 </li>
                 <li>
-                <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
+                <a  *ngIf="pagination.links.length > 4 && (pagination.links[this.pagination.current_page].url !== pageUrl.last)"
+                  class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white hidden sm:block">
+                  ... </a>
                 </li>
-                <li>
-                <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
+                <li *ngIf="pageUrl.last !== null">
+                  <a (click)="goToPage(pageUrl.last)" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                    End </a>
                 </li>
-                <li>
-                <a href="#" aria-current="page" class="z-10 flex items-center justify-center px-3 h-8 leading-tight text-purple-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-purple-600 dark:border-gray-700 dark:bg-gray-700 dark:text-purple-600">3</a>
-                </li>
-                <li>
-                <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white hidden sm:block">4</a>
-                </li>
-                <li>
-                <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white hidden sm:block">...</a>
-                </li>
-                <li>
-                <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">end</a>
-                </li>
-                <li>
-                <a href="#" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                <li *ngIf="this.pageUrl.next != null">
+                <a (click)="goToPage(pagination.links[this.pagination.current_page + 1].url)" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                     <span class="sr-only">Next</span>
                     <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
@@ -127,7 +160,5 @@
                 </li>
             </ul>
         </nav>
-
     </div>
-
 </section>
