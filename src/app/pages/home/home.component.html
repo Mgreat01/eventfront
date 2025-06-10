@@ -179,6 +179,6 @@
     <h1 class="text-5xl text-extrabold text-purple-600">Evenements à la une</h1>
   </div>
   <div class="grid grid-rows-6 grid-cols-1 md:grid-rows-3 md:grid-cols-2 xl:grid-rows-2 xl:grid-cols-3  gap-4 p-4">
-    <app-event-card [image]="event" *ngFor="let event of images" class="w-full"></app-event-card>
+    <app-event-card [event]="event" *ngFor="let event of eventThrees" class="w-full"></app-event-card>
   </div>
 </div>

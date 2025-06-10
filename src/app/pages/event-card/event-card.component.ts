@@ -1,5 +1,7 @@
 import { Component, inject, Input } from '@angular/core';
 import { Router } from '@angular/router';
+import { EventSearch } from '../../models/event';
+import { Category } from '../../models/category';
 
 @Component({
   selector: 'app-event-card',
@@ -9,5 +11,5 @@ import { Router } from '@angular/router';
 })
 export class EventCardComponent {
    router: Router = inject(Router);
-   @Input() image: any;
+  @Input() event?: EventSearch;
 }

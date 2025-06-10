@@ -6,3 +6,7 @@ export interface Response<T> {
   meta: Meta;
   links: LinkUrl;
 }
+
+export interface ResponseThree<T> {
+  data: T[];
+}
