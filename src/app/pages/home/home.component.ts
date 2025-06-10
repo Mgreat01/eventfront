@@ -1,7 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { EventCardComponent } from '../event-card/event-card.component';
 import { CategoryCardComponent } from '../category-card/category-card.component';
+import { EventSearch } from '../../models/event';
+import { EventService } from '../../services/event.service';
+import { firstValueFrom } from 'rxjs';
+import { initFlowbite } from 'flowbite';
 
 @Component({
   selector: 'app-home',
@@ -16,32 +20,30 @@ export class HomeComponent implements OnInit, OnDestroy {
     'https://plus.unsplash.com/premium_photo-1724753996329-3eef20c164c9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGZyZWUlMjBhdWRpdG9yaXVtfGVufDB8fDB8fHww',
   ];
 
-  categories = [
-    'Musique', 'Société', 'Histoire', 'Littérature', 'Religion',
-    'Philosophie', 'Sciences', 'Technologies', 'Investissement', 'Startup'
-  ];
-
-  currentIndex = 0;
-  
-  next(){
-    this.currentIndex = (this.currentIndex + 1) % this.images.length;
-  }
-
-  prev(){
-    this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
-  }
-
-  intervalId: any;
-
-  startAutoplay(){
-    this.intervalId = setInterval(() => { this.next()},3000)
-  }
+  eventThrees: EventSearch[] = [];
+  eventService: EventService = inject(EventService);
 
   ngOnInit(): void {
-    this.startAutoplay();
+    initFlowbite();
+    this.loadEvents();
   }
 
-  ngOnDestroy(): void {
-    clearInterval(this.intervalId)
+  ngOnDestroy(): void {}
+
+  async loadEvents() {
+    try {
+      const response = await firstValueFrom(this.eventService.getLastEvents());
+      this.eventThrees = response.data;
+      console.log(this.eventThrees);
+
+    } catch (error: any) {
+      if (error.status === 404) {
+        console.error('Erreur 404 : Ressource non trouvée.');
+        console.log(error.status);
+
+      } else {
+        console.error('Une erreur est survenue :', error);
+      }
+    }
   }
 }
