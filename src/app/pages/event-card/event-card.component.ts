@@ -12,4 +12,8 @@ import { Category } from '../../models/category';
 export class EventCardComponent {
    router: Router = inject(Router);
   @Input() event?: EventSearch;
+
+  navigateToEvent() {
+    this.router.navigate(['/event', this.event?.id]);
+  }
 }
