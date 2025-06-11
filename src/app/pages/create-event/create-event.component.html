@@ -2,10 +2,8 @@
   <div class="container mx-auto px-4">
     <div class="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-8">
       <form [formGroup]="form" (ngSubmit)="submit()">
-        <!-- Progress Steps -->
         <div class="mb-10">
           <div class="flex items-center justify-between">
-            <!-- Étape 1 -->
             <div class="flex flex-col items-center">
               <div
                 class="w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold"
@@ -21,7 +19,6 @@
               ></div>
             </div>
 
-            <!-- Étape 2 -->
             <div class="flex flex-col items-center">
               <div
                 class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold"
@@ -41,7 +38,6 @@
               ></div>
             </div>
 
-            <!-- Étape 3 -->
             <div class="flex flex-col items-center">
               <div
                 class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold"
@@ -61,7 +57,6 @@
               ></div>
             </div>
 
-            <!-- Étape 4 -->
             <div class="flex flex-col items-center">
               <div
                 class="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold"
@@ -76,7 +71,6 @@
             </div>
           </div>
         </div>
-        <!-- Step 1: Basic Information -->
         <div *ngIf="step === 1" formGroupName="basicInfo">
           <h2 class="text-2xl font-bold mb-6"></h2>
           <div class="mb-6">
@@ -92,6 +86,9 @@
               placeholder="Titre accrocheur"
               required
             />
+            <div *ngIf="form.get('basicInfo.title')?.invalid && form.get('basicInfo.title')?.touched" class="text-red-500 text-sm mt-1">
+              Le titre est requis.
+            </div>
           </div>
           <div class="mb-6">
             <label
@@ -109,69 +106,61 @@
                 {{ category.title }}
               </option>
             </select>
+            <div *ngIf="form.get('basicInfo.categories')?.invalid && form.get('basicInfo.categories')?.touched" class="text-red-500 text-sm mt-1">
+              Au moins une catégorie est requise.
+            </div>
           </div>
-          <!-- Dans l'étape 1 (basicInfo) -->
+          <div class="mb-6" *ngIf="step === 1">
+            <label class="block text-sm font-medium text-gray-700 mb-1">
+              Localisation en RDC *
+            </label>
 
-  <div class="mb-6" *ngIf="step === 1">
-  <label class="block text-sm font-medium text-gray-700 mb-1">
-    Localisation en RDC *
-  </label>
+            <div formGroupName="location" class="flex flex-col gap-2">
+              <div class="flex gap-2 mb-2 relative">
+                <input
+                  formControlName="address"
+                  placeholder="Ex: Gombe, Kinshasa"
+                  class="flex-1 px-4 py-2 border border-gray-300 rounded-lg"
+                  (input)="onAddressInput($event)"
+                  (focus)="onAddressFocus()"
+                  (blur)="onAddressBlur()"
+                />
+                <button
+                  type="button"
+                  (click)="geocodeAddress()"
+                  class="bg-blue-600 text-white px-4 py-2 rounded-lg"
+                >
+                  Localiser
+                </button>
 
-  <!-- Supprimez le formGroupName="basicInfo" ici -->
-  <div formGroupName="location" class="flex flex-col gap-2">
-    <div class="flex gap-2 mb-2 relative">
-      <input
-        formControlName="address"
-        placeholder="Ex: Gombe, Kinshasa"
-        class="flex-1 px-4 py-2 border border-gray-300 rounded-lg"
-        (input)="onAddressInput($event)"
-        (focus)="onAddressFocus()"
-        (blur)="onAddressBlur()"
-      />
-      <button
-        type="button"
-        (click)="geocodeAddress()"
-        class="bg-blue-600 text-white px-4 py-2 rounded-lg"
-      >
-        Localiser
-      </button>
+                <ul
+                  *ngIf="showSuggestions && addressInputFocused"
+                  class="absolute z-10 top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-auto"
+                >
+                  <li
+                    *ngFor="let suggestion of addressSuggestions"
+                    class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                    (mousedown)="selectSuggestion(suggestion)"
+                  >
+                    {{ suggestion.display_name || suggestion.name }}
+                  </li>
+                </ul>
+              </div>
+              <div *ngIf="form.get('basicInfo.location.address')?.invalid && form.get('basicInfo.location.address')?.touched" class="text-red-500 text-sm mt-1">
+                L'adresse est requise.
+              </div>
 
-      <!-- Suggestions -->
-      <ul
-        *ngIf="showSuggestions && addressInputFocused"
-        class="absolute z-10 top-full left-0 right-0 mt-1 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-auto"
-      >
-        <li
-          *ngFor="let suggestion of addressSuggestions"
-          class="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-          (mousedown)="selectSuggestion(suggestion)"
-        >
-          {{ suggestion.display_name || suggestion.name }}
-        </li>
-      </ul>
-    </div>
+              <div id="map" style="height: 400px; width: 100%; border: 1px solid #ddd;"></div>
 
-    <!-- Carte -->
-    <div id="map" style="height: 400px; width: 100%; border: 1px solid #ddd;"></div>
-
-    <!-- Champs cachés -->
-    <input type="hidden" formControlName="lat" />
-    <input type="hidden" formControlName="lng" />
-  </div>
-</div>
+              <input type="hidden" formControlName="lat" />
+              <input type="hidden" formControlName="lng" />
+              <div *ngIf="form.get('basicInfo.location.lat')?.invalid && form.get('basicInfo.location.lat')?.touched" class="text-red-500 text-sm mt-1">
+                Veuillez sélectionner une position sur la carte.
+              </div>
+            </div>
+          </div>
 
 
-          <!-- <div class="mb-6">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Type d'événement *</label>
-                        <div class="flex space-x-4">
-                            <label>
-                                <input type="radio" formControlName="eventType" value="physical" class="mr-2" checked> Événement physique
-                            </label>
-                            <label>
-                                <input type="radio" formControlName="eventType" value="online" class="mr-2"> Événement en ligne
-                            </label>
-                        </div>
-                    </div> -->
           <div class="flex justify-end mt-8">
             <button
               type="button"
@@ -183,9 +172,8 @@
           </div>
         </div>
 
-        <!-- Step 2: Event Details -->
         <div *ngIf="step === 2" formGroupName="details">
-          <h2 class="text-2xl font-bold mb-6"></h2>
+          <h2 class="text-2xl font-bold mb-6">Détails de l'événement</h2>
           <div class="mb-6">
             <label
               for="event-description"
@@ -193,12 +181,31 @@
               >Description *</label
             >
             <quill-editor formControlName="description"></quill-editor>
+            <div *ngIf="form.get('details.description')?.invalid && form.get('details.description')?.touched" class="text-red-500 text-sm mt-1">
+              La description est requise.
+            </div>
           </div>
 
-          <!-- Dans l'étape 1 (basicInfo) -->
-
-
-
+          <div class="mb-6">
+            <label
+              for="event-media"
+              class="block text-sm font-medium text-gray-700 mb-1"
+              >Image/Vidéo de l'événement *</label
+            >
+            <input
+              type="file"
+              id="event-media"
+              (change)="onFileSelected($event)"
+              class="w-full px-4 py-2 border border-gray-300 rounded-lg"
+              accept="image/jpeg,image/png,video/mp4"
+            />
+            <div *ngIf="form.get('details.url')?.invalid && form.get('details.url')?.touched" class="text-red-500 text-sm mt-1">
+              Une image ou une vidéo est requise.
+            </div>
+            <p *ngIf="selectedFile" class="text-sm text-gray-600 mt-2">
+              Fichier sélectionné : {{ selectedFile.name }}
+            </p>
+          </div>
           <div class="flex justify-between mt-8">
             <button
               type="button"
@@ -217,36 +224,8 @@
           </div>
         </div>
 
-        <!-- Step 3: Tickets -->
         <div *ngIf="step === 3" formGroupName="ticket">
-          <h2 class="text-2xl font-bold mb-6"></h2>
-          <div class="mb-6">
-            <!-- <label class="block text-sm font-medium text-gray-700 mb-1"
-              >Type d'inscription *</label
-            >
-            <div class="space-y-2">
-              <label>
-                <input
-                  type="radio"
-                  formControlName="ticketTypes"
-                  value="free"
-                  class="mr-2"
-                  checked
-                />
-                Gratuit
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  formControlName="ticketTypes"
-                  value="paid"
-                  class="mr-2"
-                />
-                Payant
-              </label>
-            </div> -->
-          </div>
-
+          <h2 class="text-2xl font-bold mb-6">Informations sur les billets et dates</h2>
           <div class="mb-6">
             <label
               for="event-start"
@@ -261,12 +240,12 @@
               required
             />
 
-            <div *ngIf="form.get('ticket.date_time_start')?.errors?.['required'] && form.get('ticket.date_time_start')?.touched">
-      La date de début est requise.
-    </div>
-    <div style="color: red;" *ngIf="form.get('ticket.date_time_start')?.errors?.['pastDate']">
-      La date de début ne peut pas être dans le passé.
-    </div>
+            <div *ngIf="form.get('ticket.date_time_start')?.errors?.['required'] && form.get('ticket.date_time_start')?.touched" class="text-red-500 text-sm mt-1">
+              La date de début est requise.
+            </div>
+            <div class="text-red-500 text-sm mt-1" *ngIf="form.get('ticket.date_time_start')?.errors?.['pastDate']">
+              La date de début ne peut pas être dans le passé.
+            </div>
           </div>
 
           <div class="mb-6">
@@ -283,12 +262,12 @@
               required
             />
 
-           <div *ngIf="form.get('ticket.date_time_end')?.errors?.['required'] && form.get('ticket.date_time_end')?.touched">
-      La date de fin est requise.
-    </div>
-    <div style="color: red;" *ngIf="form.get('ticket')?.errors?.['dateRange'] && form.get('ticket.date_time_end')?.touched">
-      La date de fin doit être postérieure à la date de début.
-    </div>
+            <div *ngIf="form.get('ticket.date_time_end')?.errors?.['required'] && form.get('ticket.date_time_end')?.touched" class="text-red-500 text-sm mt-1">
+              La date de fin est requise.
+            </div>
+            <div class="text-red-500 text-sm mt-1" *ngIf="form.get('ticket')?.errors?.['dateRange'] && form.get('ticket.date_time_end')?.touched">
+              La date de fin doit être postérieure à la date de début.
+            </div>
           </div>
           <div class="flex justify-between mt-8">
             <button
@@ -308,7 +287,6 @@
           </div>
         </div>
 
-        <!-- Step 4: Publication -->
         <div *ngIf="step === 4">
           <h2 class="text-2xl font-bold mb-6">Publication de l'événement</h2>
           <div class="flex justify-between mt-8">
