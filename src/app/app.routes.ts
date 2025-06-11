@@ -10,11 +10,13 @@ import { MesEvenementComponent } from './pages/dashboard/composants/evenement/me
 import { MesBilletsComponent } from './pages/dashboard/composants/Billets/mes-billets/mes-billets.component';
 import { CardStatComponent } from './pages/dashboard/composants/stat/card-stat/card-stat.component';
 import { ResetPasswordComponent } from './pages/aut/reset-password/reset-password.component';
+import { EventDetailsComponent } from './pages/event-details/event-details.component';
 
 export const routes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     {path: '', component: HomeComponent},
+    {path: 'event/:id', component: EventDetailsComponent },
     {
   path: 'reset-password',
   component: ResetPasswordComponent
