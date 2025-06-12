@@ -11,6 +11,8 @@ import { MesBilletsComponent } from './pages/dashboard/composants/Billets/mes-bi
 import { CardStatComponent } from './pages/dashboard/composants/stat/card-stat/card-stat.component';
 import { ResetPasswordComponent } from './pages/aut/reset-password/reset-password.component';
 import { EventDetailsComponent } from './pages/event-details/event-details.component';
+import { CreateEventComponent } from './pages/create-event/create-event.component';
+
 
 export const routes: Routes = [
     {path: 'login', component: LoginComponent},
@@ -32,5 +34,6 @@ export const routes: Routes = [
       { path: 'billets', component: MesBilletsComponent },
       { path:'stat',component: StatComponent},
     ]
-  }
+  },
+  {path: 'create', component: CreateEventComponent}
 ];
