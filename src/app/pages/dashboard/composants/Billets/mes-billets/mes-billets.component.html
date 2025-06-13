@@ -1,4 +1,16 @@
-<div class="space-y-4">
+<!-- <div class="space-y-4">
     <app-tri-billets></app-tri-billets>
     <app-card-billet></app-card-billet>
+</div> -->
+
+<!-- <app-tri-billets></app-tri-billets> -->
+
+<!-- <div *ngIf="loading" class="text-center my-10">Chargement...</div>
+
+<div *ngIf="!loading && tickets.length === 0" class="text-center my-10">
+  Aucun événement trouvé.
+</div> -->
+
+<div class="grid grid-cols-1 gap-6" *ngIf="tickets.length > 0">
+  <app-card-billet *ngFor="let ticket of tickets" [ticket]="ticket"></app-card-billet>
 </div>
