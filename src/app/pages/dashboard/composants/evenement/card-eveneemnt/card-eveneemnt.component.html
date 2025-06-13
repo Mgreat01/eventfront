@@ -1,39 +1,114 @@
+<!-- 
+
+                        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+  <div class="relative">
+    <img src="https://via.placeholder.com/400x200" alt="Image événement"
+      class="w-full h-48 object-cover" />
+
+    <div class="absolute top-0 right-0 text-white text-xs font-bold px-2 py-1 m-2 rounded"
+      [ngClass]="getBadgeColor()">
+      {{ getStatus() }}
+    </div>
+  </div>
+
+  <div class="p-6">
+    <div class="flex justify-between items-start mb-2">
+      <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded">
+        {{ event.cycle || 'Cycle inconnu' }}
+      </span>
+      <span class="text-gray-600 text-sm">
+        {{ getFormattedDate(event.date_time_start) }}
+      </span>
+    </div>
+
+    <h3 class="text-xl font-bold mb-2">
+      {{ event.title || 'Titre non défini' }}
+    </h3>
+
+    <p class="text-gray-600 text-sm mb-3">
+      {{ event.description || 'Aucune description' }}
+    </p>
+
+    <div class="flex items-center mb-4">
+      <i class="fas fa-user text-gray-500 mr-2"></i>
+      <span class="text-gray-700">
+        Organisé par {{ event.created_by?.name || 'Inconnu' }}
+      </span>
+    </div>
+
+    <div class="flex space-x-2">
+      <a href="edit-event.html" class="flex-1 bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition text-center">
+        <i class="fas fa-edit mr-1"></i> Modifier
+      </a>
+      <button class="bg-gray-200 text-gray-700 p-2 rounded-lg hover:bg-gray-300 transition">
+        <i class="fas fa-chart-bar"></i>
+      </button>
+    </div>
+  </div>
+</div> -->
+
+
+
 <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                        <div class="relative">
-                            <img src="/placeholder.svg?height=200&width=400" alt="Festival de musique" class="w-full h-48 object-cover">
-                            <div class="absolute top-0 right-0 bg-green-500 text-white text-xs font-bold px-2 py-1 m-2 rounded">
-                                Publié
-                            </div>
-                        </div>
-                        <div class="p-6">
-                            <div class="flex justify-between items-start mb-2">
-                                <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded">Musique</span>
-                                <span class="text-gray-600 text-sm">15 Mai 2025</span>
-                            </div>
-                            <h3 class="text-xl font-bold mb-2">Festival de Musique Électronique</h3>
-                            <div class="flex items-center mb-4">
-                                <i class="fas fa-map-marker-alt text-gray-500 mr-2"></i>
-                                <span class="text-gray-700">Parc des Expositions, Paris</span>
-                            </div>
-                            <div class="flex items-center justify-between mb-4">
-                                <div class="flex items-center">
-                                    <i class="fas fa-users text-gray-500 mr-2"></i>
-                                    <span class="text-gray-700">120/150 inscrits</span>
-                                </div>
-                                <div class="flex items-center">
-                                    <i class="fas fa-euro-sign text-gray-500 mr-2"></i>
-                                    <span class="text-gray-700">49,99 €</span>
-                                </div>
-                            </div>
-                            <div class="flex space-x-2">
-                                <a href="edit-event.html" class="flex-1 bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition text-center">
-                                    <i class="fas fa-edit mr-1"></i> Modifier
-                                </a>
-                                <button class="bg-gray-200 text-gray-700 p-2 rounded-lg hover:bg-gray-300 transition">
-                                    <i class="fas fa-chart-bar"></i>
-                                </button>
-                                <button class="bg-gray-200 text-gray-700 p-2 rounded-lg hover:bg-gray-300 transition">
-                                    <i class="fas fa-ellipsis-v"></i>
-                                </button>
-                            </div>
-                        </div>
+  <div class="p-6">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+      <!-- Colonne de gauche - Informations principales -->
+      <div class="flex-1 mb-4 md:mb-0">
+        <!-- En-tête avec catégorie et date -->
+        <div class="flex items-center mb-3">
+          <span class="bg-purple-100 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded mr-3">
+            {{ event.cycle || 'Cycle inconnu' }}
+          </span>
+          <span class="text-gray-600 text-sm">
+            {{ getFormattedDate(event.date_time_start) }}
+          </span>
+          <span class="ml-auto text-xs font-semibold px-2.5 py-0.5 rounded" 
+                [ngClass]="getBadgeColor()">
+            {{ getStatus() }}
+          </span>
+        </div>
+
+        <!-- Titre et description -->
+        <h3 class="text-xl font-bold mb-2 text-gray-800">
+          {{ event.title || 'Titre non défini' }}
+        </h3>
+        <p class="text-gray-600 mb-3 line-clamp-2">
+          {{ event.description || 'Aucune description' }}
+        </p>
+
+        <!-- Métadonnées -->
+        <div class="flex flex-wrap gap-4 text-sm text-gray-700">
+          <div class="flex items-center">
+            <i class="fas fa-map-marker-alt text-gray-500 mr-2"></i>
+            <span>{{ event.location || 'Lieu non spécifié' }}</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-user text-gray-500 mr-2"></i>
+            <span>Organisé par {{ event.created_by?.name || 'Inconnu' }}</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-users text-gray-500 mr-2"></i>
+            <span>{{ event.attendees_count || 0 }}/{{ event.capacity || '∞' }} participants</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Colonne de droite - Actions et prix -->
+      <div class="flex flex-col items-start md:items-end mt-4 md:mt-0 md:pl-4">
+        <div class="text-lg font-bold text-purple-600 mb-3">
+          {{ event.price ? (event.price + ' €') : 'Gratuit' }}
+        </div>
+        
+        <div class="flex flex-col sm:flex-row md:flex-col lg:flex-row gap-2 w-full md:w-auto">
+          <a href="edit-event.html" 
+             class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition flex items-center justify-center">
+            <i class="fas fa-edit mr-2"></i> Modifier
+          </a>
+          <button class="bg-gray-100 hover:bg-gray-200 text-gray-700 px-4 py-2 rounded-lg transition flex items-center justify-center">
+            <i class="fas fa-chart-bar mr-2"></i> Stats
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

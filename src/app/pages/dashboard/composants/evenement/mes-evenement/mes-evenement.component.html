@@ -1,6 +1,13 @@
-<app-tri-evenement></app-tri-evenement>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-   <app-card-eveneemnt></app-card-eveneemnt>
-    <app-card-eveneemnt></app-card-eveneemnt>
-    <app-card-eveneemnt></app-card-eveneemnt>
+<!-- <app-tri-evenement></app-tri-evenement>
+
+
+<div *ngIf="loading" class="text-center my-10">Chargement...</div>
+
+<div *ngIf="!loading && evenements.length === 0" class="text-center my-10">
+  Aucun événement trouvé.
+</div> -->
+
+
+<div class="grid grid-cols-1 gap-6" *ngIf="evenements.length > 0">
+  <app-card-eveneemnt *ngFor="let evenement of evenements" [event]="evenement"></app-card-eveneemnt>
 </div>
