@@ -22,43 +22,29 @@
                     <!-- Type -->
                     <div>
                     <label for="type" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Catégories</label>
-                    <select id="type" class="mt-1 mx-auto px-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-600 text-xs text-gray-500  dark:text-gray-400 focus:ring-purple-600 sm:text-xs dark:bg-gray-700 dark:border-gray-600">
-                        <option class="m-2 text-xs text-gray-500  dark:text-gray-400">Tout</option>
-                        <option class="m-2 text-xs text-gray-500  dark:text-gray-400">Concert</option>
-                        <option class="m-2 text-xs text-gray-500  dark:text-gray-400">Festival</option>
-                        <option class="m-2 text-xs text-gray-500  dark:text-gray-400">Conférence</option>
+                    <select id="type" [formControl]="categoryForm" class="mt-1 mx-auto px-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-purple-600 text-xs text-gray-500  dark:text-gray-400 focus:ring-purple-600 sm:text-xs dark:bg-gray-700 dark:border-gray-600">
+                        @for(category of categories; track category.id){
+                          <option class="m-2 text-xs text-gray-500  dark:text-gray-400"> {{ category.title }}</option>
+                        }
                     </select>
                     </div>
                     <!-- Type -->
                     <div>
-                    <label for="type" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Organisateur</label>
+                    <label for="type" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Cycle</label>
                     <select id="type" class="mt-1 block w-full px-1 mx-auto rounded-md border-gray-300 shadow-sm focus:border-purple-600 m-2 text-xs text-gray-500  dark:text-gray-400 focus:ring-purple-600 sm:text-xs dark:bg-gray-700 dark:border-gray-600">
-                        <option class="m-2 text-xs text-gray-500  dark:text-gray-400">Tout</option>
-                        <option class="m-2 text-xs text-gray-500  dark:text-gray-400">Concert</option>
-                        <option class="m-2 text-xs text-gray-500  dark:text-gray-400">Festival</option>
-                        <option class="m-2 text-xs text-gray-500  dark:text-gray-400">Conférence</option>
-                    </select>
-                    </div>
-                    <!-- Date -->
-                    <div>
-                    <label for="date" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Date</label>
-                    <input type="date" id="date" class="mt-1 block w-full px-1 mx-auto rounded-md border-gray-300 shadow-sm focus:border-purple-600 m-2 text-xs text-gray-500  dark:text-gray-400 focus:ring-purple-600 sm:text-xs dark:bg-gray-700 dark:border-gray-600"  />
-                    </div>
-                    <!-- Prix -->
-                    <div>
-                    <label for="type" class="block text-xs font-medium text-gray-700 dark:text-gray-300">Prix (fc)</label>
-                    <select id="type" class="mt-1 block w-full px-1 mx-auto rounded-md border-gray-300 shadow-sm focus:border-purple-600 m-2 text-xs text-gray-500  dark:text-gray-400 focus:ring-purple-600 sm:text-xs dark:bg-gray-700 dark:border-gray-600">
-                        <option class="m-2 text-xs text-gray-500  dark:text-gray-400">gratuit</option>
-                        <option class="m-2 text-xs text-gray-500  dark:text-gray-400">>5000</option>
-                        <option class="m-2 text-xs text-gray-500  dark:text-gray-400">>20000</option>
-                        <option class="m-2 text-xs text-gray-500  dark:text-gray-400">>50000</option>
-                        <option class="m-2 text-xs text-gray-500  dark:text-gray-400">>100000</option>
+                        <option class="m-2 text-xs text-gray-500 dark:text-gray-400" value="yearly">Yearly</option>
+                        <option class="m-2 text-xs text-gray-500 dark:text-gray-400" value="semesterly">Semesterly</option>
+                        <option class="m-2 text-xs text-gray-500 dark:text-gray-400" value="trimesterly">Trimesterly</option>
+                        <option class="m-2 text-xs text-gray-500 dark:text-gray-400" value="monthly">Monthly</option>
+                        <option class="m-2 text-xs text-gray-500 dark:text-gray-400" value="weekly">Weekly</option>
+                        <option class="m-2 text-xs text-gray-500 dark:text-gray-400" value="daily">Daily</option>
+                        <option class="m-2 text-xs text-gray-500 dark:text-gray-400" value="seasonly">Seasonly</option>
                     </select>
                     </div>
                 </div>
                 <div class="mt-4 flex justify-end gap-2">
                     <button (click)="resetFilters()" class=" m-2 text-white  bg-purple-600 hover:bg-teal-500 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-purple-600 dark:hover:bg-teal-600 dark:focus:ring-purple-600">Reset</button>
-                    <button class=" m-2 text-white  bg-purple-600 hover:bg-teal-500 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-purple-600 dark:hover:bg-teal-600 dark:focus:ring-purple-600">Apply</button>
+                    <button (click)="submit($event)" class=" m-2 text-white  bg-purple-600 hover:bg-teal-500 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-purple-600 dark:hover:bg-teal-600 dark:focus:ring-purple-600">Apply</button>
                 </div>
                 </div>
             </div>
