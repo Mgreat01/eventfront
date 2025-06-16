@@ -1,0 +1,59 @@
+
+
+<div class="w-full justify-center p-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+        <div *ngIf="!errorCatch" class="w-full mb-2 items-center justify-center divide-y divide-gray-200 dark:divide-gray-700">
+            <div class="dark:bg-gray-900 mx-auto pt-10">
+              <div class="max-w-2x1 mx-auto text-center mb-5 lg:mb-5">
+                <h1 class="text-5xl text-extrabold text-purple-600">Découvrez les événements liés à chaque categorie</h1>
+              </div>
+              <div class="grid grid-rows grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mx-auto gap-4 p-4">
+                <app-category-card [category]="category" *ngFor="let category of categories"
+                  class="w-full mx-auto"></app-category-card>
+              </div>
+            </div>
+        </div>
+        <nav *ngIf="!errorCatch" aria-label="w-full  Page navigation example">
+            <ul class="flex justify-center items-center -space-x-px h-8 text-sm">
+                <li  *ngIf="this.pageUrl.prev != null">
+                <a (click)="goToPage(pagination.links[this.pagination.current_page - 1].url)" class="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                    <span class="sr-only">Previous</span>
+                    <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
+                    </svg>
+                </a>
+                </li>
+                <li *ngIf="pageUrl.first !== null">
+                <a (click)="goToPage(pageUrl.first)" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"> Start </a>
+                </li>
+                <li *ngIf="this.pageUrl.prev != null">
+                <a (click)="goToPage(pagination.links[this.pagination.current_page-1].url)" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                  {{ this.pagination.current_page-1 }} </a>
+                </li>
+                <li *ngIf="pagination.links.length >= 2">
+                <a (click)="goToPage(pagination.links[this.pagination.current_page].url)" class="z-10 flex items-center justify-center px-3 h-8 leading-tight text-purple-600 border border-blue-300 bg-blue-50 hover:bg-blue-100 hover:text-purple-600 dark:border-gray-700 dark:bg-gray-700 dark:text-purple-600">
+                  {{ this.pagination.current_page }} </a>
+                </li>
+                <li *ngIf="this.pageUrl.next != null">
+                <a (click)="goToPage(pagination.links[this.pagination.current_page+1].url)" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                  {{ this.pagination.current_page+1 }} </a>
+                </li>
+                <li>
+                <a  *ngIf="pagination.links.length > 4 && (pagination.links[this.pagination.current_page].url !== pageUrl.last)"
+                  class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white hidden sm:block">
+                  ... </a>
+                </li>
+                <li *ngIf="pageUrl.last !== null">
+                  <a (click)="goToPage(pageUrl.last)" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                    End </a>
+                </li>
+                <li *ngIf="this.pageUrl.next != null">
+                <a (click)="goToPage(pagination.links[this.pagination.current_page + 1].url)" class="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                    <span class="sr-only">Next</span>
+                    <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+                    </svg>
+                </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
