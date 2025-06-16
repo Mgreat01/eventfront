@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Category } from '../models/category';
 import { EventSearch } from '../models/event';
-import { ResponseThree } from '../models/response';
+import { ResponseThree, Response} from '../models/response';
 import { UserService } from './user.service';
 
 
@@ -21,23 +21,40 @@ export class EventService {
     return this.http.post(`${this.apiUrl}/evenements`, data);
   }
 
-  getCategories(): Observable<any[]> {
-    return this.http.get<Category[]>(`${this.apiUrl}/categories`);
+  getCategories(url?: string, all?: boolean): Observable<Response<Category>> {
+    if (url != null) {
+      return this.http.get<Response<Category>>(`${url}`);
+    }
+    if(all) {
+
+      return this.http.get<Response<Category>>(`${this.apiUrl}/categories?all=1`);
+    }
+    return this.http.get<Response<Category>>(`${this.apiUrl}/categories`);
   }
 
 
   getEventById(id: number): Observable<{ data: EventSearch }> {
-    return this.http.get<{ data: EventSearch }>(`${this.apiUrl}/event/id/${id}`);
+    return this.http.get<{ data: EventSearch }>(`${this.apiUrl}/events/id/${id}`);
   }
 
-  getLastEvents(): Observable<ResponseThree<EventSearch>> {
-    return this.http.get<ResponseThree<EventSearch>>(`${this.apiUrl}/event/three`);
+  getLastEvents(count: number = 3, excludeId: number = 0): Observable<ResponseThree<EventSearch>> {
+    if(excludeId) {
+      return this.http.get<ResponseThree<EventSearch>>(`${this.apiUrl}/events?latest=true&count=${count}&exclude=true&exclude_id=${excludeId}`);
+    }
+    return this.http.get<ResponseThree<EventSearch>>(`${this.apiUrl}/events?latest=true&count=${count}`);
+  }
+
+  getEvents(url: string): Observable<Response<EventSearch>> {
+    if (url != null) {
+      return this.http.get<Response<EventSearch>>(`${url}`);
+    }
+    return this.http.get<Response<EventSearch>>(`${this.apiUrl}/events`);
   }
 
 
    getOrganizerEvents(filter: string = 'all', search: string = ''): Observable<any> {
    // const token = this.userService.getToken();
-   const token = "1|ixjHKHqQXEQ0MiNmpKwnJBUXQdg8gzswzMyi6AJN66498661"
+     const token = "3|WL5xTSR3VtbHJ0XItrez7KqV0voaC4Y0pevv4k8Lae1da6fd"
 
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
@@ -55,7 +72,7 @@ export class EventService {
   }
 
   getOrganizerTickets(): Observable<any> {
-  const token = this.userService.getToken() || "1|ixjHKHqQXEQ0MiNmpKwnJBUXQdg8gzswzMyi6AJN66498661"; // fallback si tu fais des tests
+    const token = this.userService.getToken() || "3|WL5xTSR3VtbHJ0XItrez7KqV0voaC4Y0pevv4k8Lae1da6fd"; // fallback si tu fais des tests
 
   const headers = new HttpHeaders({
     Authorization: `Bearer ${token}`,
