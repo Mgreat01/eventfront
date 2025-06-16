@@ -1,11 +1,10 @@
 import { Component, inject, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { EventSearch } from '../../models/event';
-import { Category } from '../../models/category';
 
 @Component({
   selector: 'app-event-card',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './event-card.component.html',
   styleUrl: './event-card.component.css'
 })
