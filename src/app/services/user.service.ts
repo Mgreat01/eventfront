@@ -1,16 +1,21 @@
+import { Auth } from './../models/auth';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
 import { Interet } from '../models/interet';
 import { UserSearch } from '../models/user';
 
+
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://localhost:8000/api';
+ private apiUrl = 'http://localhost:8000/api';
+  //private apiUrl = 'http://10.252.252.50:8000/api'; // URL de l'API backend
   private isLoggedInSubject = new BehaviorSubject<boolean>(this.hasToken());
   isLoggedIn$ = this.isLoggedInSubject.asObservable();
+  private token = ""; 
+  
 
 
   constructor(private http: HttpClient) {}
@@ -27,9 +32,17 @@ export class UserService {
     console.log(' Données envoyées au backend lors du login :', data);
 
     try {
-      const response = await firstValueFrom(this.http.post(`${this.apiUrl}/login`, data));
+      const response = await firstValueFrom(this.http.post<Auth>(`${this.apiUrl}/login`, data));
       console.log(' Réponse reçue du serveur :', response);
-      // this.isLoggedInSubject.next(true);
+      const token = response.data.token;
+      this.token = token;
+
+      this.saveUserSession(token, response.data);
+
+console.log('Token sauvegardé dans le localStorage :', localStorage.getItem('access_token'));
+
+       
+       this.isLoggedInSubject.next(true);
 
       return response;
     } catch (error) {
@@ -54,7 +67,7 @@ export class UserService {
   }
 
   getToken(): string | null {
-    return localStorage.getItem('access_token');
+    return this.token || localStorage.getItem('access_token');
   }
 
    hasToken(): boolean {
@@ -62,6 +75,7 @@ export class UserService {
   }
 
   logout(): void {
+    this.token = '';
     localStorage.removeItem('access_token');
     localStorage.removeItem('current_user');
     localStorage.removeItem('name');
