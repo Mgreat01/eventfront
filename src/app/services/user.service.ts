@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, firstValueFrom } from 'rxjs';
+import { BehaviorSubject, firstValueFrom, Observable } from 'rxjs';
 import { Interet } from '../models/interet';
+import { UserSearch } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
@@ -14,22 +15,17 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-
-
-
   getInterets() {
   return this.http.get<Interet[]>(`${this.apiUrl}/interet`);
 }
-  
+
   async registerUser(data: any): Promise<any> {
     return await firstValueFrom(this.http.post(`${this.apiUrl}/register`, data));
   }
 
-  
-
   async login(data: { email: string; password: string }): Promise<any> {
     console.log(' Données envoyées au backend lors du login :', data);
-  
+
     try {
       const response = await firstValueFrom(this.http.post(`${this.apiUrl}/login`, data));
       console.log(' Réponse reçue du serveur :', response);
@@ -42,24 +38,20 @@ export class UserService {
     }
   }
 
-  
   async socialLogin(provider: 'google' | 'facebook'): Promise<void> {
     const authUrl = `${this.apiUrl}/auth/${provider}/callback`;
     window.location.href = authUrl;
   }
 
- 
   saveUserSession(token: string, user: any): void {
     localStorage.setItem('access_token', token);
     localStorage.setItem('current_user', JSON.stringify(user));
   }
 
-  
   getCurrentUser(): any {
     const user = localStorage.getItem('current_user');
     return user ? JSON.parse(user) : null;
   }
-
 
   getToken(): string | null {
     return localStorage.getItem('access_token');
@@ -77,7 +69,7 @@ export class UserService {
     this.isLoggedInSubject.next(false);
   }
 
-  
+
   isLoggedIn(): boolean {
     return this.isLoggedInSubject.getValue();
   }
@@ -85,7 +77,7 @@ export class UserService {
   forgotPassword(email: string) {
     return this.http.post<any>(`${this.apiUrl}/forgot-password`, { email });
   }
-  
+
   resetPassword(token: string, email: string, password: string, confirmPassword: string) {
   const payload = {
     token,
@@ -96,10 +88,10 @@ export class UserService {
   return this.http.post(`${this.apiUrl}/reset-password`, payload);
 }
 
-  getUserById(id: string) {
-    return this.http.get<any>(`${this.apiUrl}/users/${id}`);
-  }  
-  
+  getUserById(id: string): Observable<{ data : UserSearch}> {
+    return this.http.get<{data : UserSearch}>(`${this.apiUrl}/user/${id}`);
+  }
+
   initializeSession(): void {
   const token = this.getToken();
   const user = this.getCurrentUser();

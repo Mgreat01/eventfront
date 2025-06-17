@@ -1,9 +1,6 @@
 import { StatComponent } from './pages/dashboard/composants/stat/stat/stat.component';
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
-import { DashboardComponent } from './pages/dashboard/dashboard/dashboard.component';
-import { MesEvenementComponent } from './pages/dashboard/composants/evenement/mes-evenement/mes-evenement.component';
-import { MesBilletsComponent } from './pages/dashboard/composants/Billets/mes-billets/mes-billets.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -40,6 +37,11 @@ export const routes: Routes = [
     loadComponent : () => import('../app/pages/event-details/event-details.component').then((m)=> m.EventDetailsComponent)
   },
   {
+    path: 'events',
+    title : 'Events - EventSpot',
+    loadComponent: () => import('../app/pages/event-page/event-page.component').then((m) => m.EventPageComponent)
+  },
+  {
     path: 'categories',
     title : 'Categories - EventSpot',
     loadComponent: () => import('../app/pages/category-page/category-page.component').then((m)=> m.CategoryPageComponent)
@@ -48,6 +50,13 @@ export const routes: Routes = [
     path: 'search',
     title: 'Search - EventSpot',
     loadComponent: () => import('../app/pages/search/search.component').then((m) => m.SearchComponent)
+  },
+  //profile
+  {
+    path: 'profile',
+    title: 'Profile - EventSpot',
+    loadComponent: () => import('../app/pages/public-profile/public-profile.component').then((m) => m.PublicProfileComponent),
+    children: []
   },
   //Organisation
   {
