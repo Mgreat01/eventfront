@@ -53,8 +53,9 @@ export class EventService {
 
 
    getOrganizerEvents(filter: string = 'all', search: string = ''): Observable<any> {
-   // const token = this.userService.getToken();
-     const token = "3|WL5xTSR3VtbHJ0XItrez7KqV0voaC4Y0pevv4k8Lae1da6fd"
+ const token = this.userService.getToken()
+  console.log('Token utilisé pour l\'authentification :', token);
+
 
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
@@ -72,7 +73,9 @@ export class EventService {
   }
 
   getOrganizerTickets(): Observable<any> {
-    const token = this.userService.getToken() || "3|WL5xTSR3VtbHJ0XItrez7KqV0voaC4Y0pevv4k8Lae1da6fd"; // fallback si tu fais des tests
+
+const token = this.userService.getToken();
+  console.log('Token utilisé pour l\'authentification :', token);
 
   const headers = new HttpHeaders({
     Authorization: `Bearer ${token}`,
