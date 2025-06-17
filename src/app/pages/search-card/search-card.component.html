@@ -1,44 +1,27 @@
-<div class="flex border-b border-gray-200 dark:border-gray-600  justify-between items-center space-x-4 rtl:space-x-reverse">
-         <div class="shrink-0 m-2 hidden sm:block">
-            <img src="https://images.unsplash.com/photo-1568772472528-9f7f5795e094?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGZyZWUlMjBhdWRpdG9yaXVtfGVufDB8fDB8fHww"
-            class="w-[204px] h-[113px] border-gray-200 dark:border-gray-600 rounded-lg" alt="Neil image">
-         </div>
-         <div class="flex-1 p-2 min-w-0">
-            <div class="flex text-sm text-gray-500 hidden sm:block dark:text-gray-400">
-              @for(category of event?.categories; track category.id){
-                <span class="bg-purple-100 m-2 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded">
-                  {{category.title }} </span>
-              }
-            </div>
-            <p class="text-sm m-2 font-medium text-gray-900 dark:text-white">
-              {{ event?.title }}
-            </p>
-            <div class="flex m-2 text-sm text-gray-500 sm:p-4 sm:gap-4 sm:flex-row dark:text-gray-400">
-                <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                  <i class="fas fa-clock text-gray-500  dark:text-gray-400">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16">
-                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
-                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
-                    </svg>
-                  </i>
-                  <span class="m-2 text-xs text-gray-500  dark:text-gray-400">By {{ event?.created_by?.name }}</span>
-                </div>
-                <div class="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                  <i class="fas fa-map-marker-alt text-gray-500  dark:text-gray-400 m-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
-                      <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
-                    </svg>
-                  </i>
-                  <span class="m-2 text-xs text-gray-500  dark:text-gray-400">At Huileries Street</span>
-                </div>
-                <div class="flex items-center text-sm text-gray-500  dark:text-gray-400">
-                  <i class="fas fa-clock text-gray-500  dark:text-gray-400 m-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-calendar-check-fill" viewBox="0 0 16 16">
-                      <path d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v1h16V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM16 14V5H0v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2m-5.146-5.146-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708.708"/>
-                    </svg>
-                  </i>
-                  <span class="m-2 text-xs text-gray-500  dark:text-gray-400"> {{ event?.date_time_start }}</span>
-                </div>
-            </div>
-         </div>
+<a [routerLink]="['/event', event?.id]"
+  class="flex border-b border-gray-200 dark:border-gray-600 space-x-4 rtl:space-x-reverse gap-2 p-3 h-40">
+  <div class="w-[10%] sm:w-[30%] h-[95%] flex items-center justify-center">
+    <img
+      src="https://images.unsplash.com/photo-1568772472528-9f7f5795e094?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGZyZWUlMjBhdWRpdG9yaXVtfGVufDB8fDB8fHww"
+      class="w-51 h-[100%] border-gray-200 dark:border-gray-600 rounded-lg hidden sm:block" alt="Neil image">
+    <svg class="w-[48px] h-[48px] sm:hidden text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+      width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+      <path
+        d="M13.09 3.294c1.924.95 3.422 1.69 5.472.692a1 1 0 0 1 1.438.9v9.54a1 1 0 0 1-.562.9c-2.981 1.45-5.382.24-7.25-.701a38.739 38.739 0 0 0-.622-.31c-1.033-.497-1.887-.812-2.756-.77-.76.036-1.672.357-2.81 1.396V21a1 1 0 1 1-2 0V4.971a1 1 0 0 1 .297-.71c1.522-1.506 2.967-2.185 4.417-2.255 1.407-.068 2.653.453 3.72.967.225.108.443.216.655.32Z" />
+    </svg>
+  </div>
+  <div class="w-[90%] sm:w-[70%] m-2 gap-2">
+    <div class="h-1/4 text-sm text-gray-500 hidden md:block dark:text-gray-400">
+      @for(category of event?.categories; track category.id){
+        <span class="bg-purple-100 m-1 text-purple-800 text-xs font-semibold px-2.5 py-0.5 rounded">
+          {{category.title }} </span>
+        }
     </div>
+    <div class="h-3/4">
+      <p class="text-sm m-2 font-medium text-gray-900 dark:text-white">
+        {{ event?.title }} Supercharge your editor with AI that understands your codebase, streamlines development, and helps you write, refactor,
+        and debug with ease.
+      </p>
+    </div>
+  </div>
+</a>

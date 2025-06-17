@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy, inject } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { EventCardComponent } from '../event-card/event-card.component';
-import { CategoryCardComponent } from '../category-card/category-card.component';
 import { EventSearch } from '../../models/event';
 import { EventService } from '../../services/event.service';
 import { firstValueFrom } from 'rxjs';
@@ -9,7 +8,7 @@ import { initFlowbite } from 'flowbite';
 
 @Component({
   selector: 'app-home',
-  imports: [ NgFor, EventCardComponent, CategoryCardComponent],
+  imports: [NgFor, EventCardComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -32,7 +31,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   async loadEvents() {
     try {
-      const response = await firstValueFrom(this.eventService.getLastEvents());
+      const response = await firstValueFrom(this.eventService.getLastEvents(6));
       this.eventThrees = response.data;
       console.log(this.eventThrees);
 

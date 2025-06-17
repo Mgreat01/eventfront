@@ -1,14 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { NgFor, NgIf } from '@angular/common';
 import { SearchCardComponent } from '../search-card/search-card.component';
-import { SearchService } from '../../services/search.service';
 import { Category } from '../../models/category';
 import { EventSearch } from '../../models/event';
 import { Meta } from '../../models/meta';
 import { LinkUrl } from '../../models/link';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { from, firstValueFrom } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { EventService } from '../../services/event.service';
 
 @Component({
   selector: 'app-search',
@@ -17,23 +17,10 @@ import { NgxPaginationModule } from 'ngx-pagination';
   styleUrl: './search.component.css'
 })
 export class SearchComponent {
-
-  images = [
-    'https://images.unsplash.com/photo-1626107096629-834f944251af?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGZyZWUlMjBhdWRpdG9yaXVtfGVufDB8fDB8fHww',
-    'https://images.unsplash.com/photo-1568772472528-9f7f5795e094?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGZyZWUlMjBhdWRpdG9yaXVtfGVufDB8fDB8fHww',
-    'https://plus.unsplash.com/premium_photo-1724753996329-3eef20c164c9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGZyZWUlMjBhdWRpdG9yaXVtfGVufDB8fDB8fHww',
-    'https://images.unsplash.com/photo-1626107096629-834f944251af?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGZyZWUlMjBhdWRpdG9yaXVtfGVufDB8fDB8fHww',
-    'https://images.unsplash.com/photo-1568772472528-9f7f5795e094?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGZyZWUlMjBhdWRpdG9yaXVtfGVufDB8fDB8fHww',
-    'https://plus.unsplash.com/premium_photo-1724753996329-3eef20c164c9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGZyZWUlMjBhdWRpdG9yaXVtfGVufDB8fDB8fHww',
-    'https://images.unsplash.com/photo-1626107096629-834f944251af?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGZyZWUlMjBhdWRpdG9yaXVtfGVufDB8fDB8fHww',
-    'https://images.unsplash.com/photo-1568772472528-9f7f5795e094?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGZyZWUlMjBhdWRpdG9yaXVtfGVufDB8fDB8fHww',
-    'https://plus.unsplash.com/premium_photo-1724753996329-3eef20c164c9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGZyZWUlMjBhdWRpdG9yaXVtfGVufDB8fDB8fHww',
-    'https://images.unsplash.com/photo-1626107096629-834f944251af?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGZyZWUlMjBhdWRpdG9yaXVtfGVufDB8fDB8fHww',
-  ];
-
   isOpenDropDown: boolean = false;
-  searchService = inject(SearchService);
+  searchService = inject(EventService);
   events: EventSearch[] = [];
+  categories: Category[] = [];
   pagination!: Meta;
   pageUrl!: LinkUrl;
   url!: string;
@@ -44,9 +31,10 @@ export class SearchComponent {
   searchTerm: string = '';
   private apiUrl = 'http://localhost:8000/api';
   searchForm = new FormControl('');
+  categoryForm = new FormControl('');
   perPage = new FormControl<number>(10);
   errorCatch : boolean = false;
-  items = []; 
+  items = [];
 
   ngOnInit() {
     this.loadEvents();
@@ -55,8 +43,10 @@ export class SearchComponent {
   async loadEvents(url?: string) {
     try {
       const response = await firstValueFrom(this.searchService.getEvents(this.url));
+      const responseCategory = await firstValueFrom(this.searchService.getCategories(undefined, true));
       this.isLoaded = !this.isLoaded;
       this.events = response.data;
+      this.categories = responseCategory.data;
       this.pagination = response.meta;
       this.pageUrl = response.links;
       this.isLoaded = true;
@@ -93,7 +83,7 @@ export class SearchComponent {
   submit(event: Event) {
     event.preventDefault();
     console.log(this.searchForm.value);
-    this.url = this.pagination.path + '?search=' + this.searchForm.value;
+    this.url = this.pagination.path + '?search=' + this.searchForm.value + '&categories=' + this.categoryForm.value;
     console.log('Terme de recherche :', this.url);
 
     this.goToPage(this.url);
