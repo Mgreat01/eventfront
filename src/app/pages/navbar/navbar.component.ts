@@ -10,24 +10,28 @@ import { UserService } from '../../services/user.service';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
-  isDarkTheme: boolean = false;  
+  isDarkTheme: boolean = false;
    userName: string | null = null;
-   isLoggedIn = false;
+   role:  string | null = null;
+   asPublic: boolean = false;
+   isLoggedIn: boolean = false;
   router: any;
 
 
 
-   constructor(private authService: UserService) {}
+  constructor(private authService: UserService) {}
 
 
-   ngOnInit(): void {
+  ngOnInit(): void {
     this.userName = localStorage.getItem('name');
+    this.role = localStorage.getItem('role');
 
-  
-  if (this.userName) {
-    this.isLoggedIn = true;
-    
-  }
+    if (this.userName) {
+      this.isLoggedIn = true;
+    }
+    if (this.role === 'public') {
+      this.asPublic = true;
+    }
   }
 
   toggleTheme(): void {
@@ -35,7 +39,7 @@ export class NavbarComponent {
     const htmlPage = document.documentElement;
     htmlPage.classList.toggle('dark', this.isDarkTheme);
   }
-  
+
    Logout() {
     this.authService.logout();
     this.isLoggedIn = false;

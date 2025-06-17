@@ -51,6 +51,13 @@ export const routes: Routes = [
     title: 'Search - EventSpot',
     loadComponent: () => import('../app/pages/search/search.component').then((m) => m.SearchComponent)
   },
+  //profile
+  {
+    path: 'profile',
+    title: 'Profile - EventSpot',
+    loadComponent: () => import('../app/pages/public-profile/public-profile.component').then((m) => m.PublicProfileComponent),
+    children: []
+  },
   //Organisation
   {
     path: 'dashboard',
