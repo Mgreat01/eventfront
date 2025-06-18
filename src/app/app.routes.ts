@@ -1,6 +1,17 @@
 import { StatComponent } from './pages/dashboard/composants/stat/stat/stat.component';
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
+import { SearchComponent } from './pages/search/search.component';
+import { ForgotPasswordComponent } from './pages/aut/forgot-password/forgot-password.component';
+import { DashboardComponent } from './pages/dashboard/dashboard/dashboard.component';
+import { MesEvenementComponent } from './pages/dashboard/composants/evenement/mes-evenement/mes-evenement.component';
+import { MesBilletsComponent } from './pages/dashboard/composants/Billets/mes-billets/mes-billets.component';
+import { CardStatComponent } from './pages/dashboard/composants/stat/card-stat/card-stat.component';
+import { ResetPasswordComponent } from './pages/aut/reset-password/reset-password.component';
+import { EventDetailsComponent } from './pages/event-details/event-details.component';
+import { CreateEventComponent } from './pages/create-event/create-event.component';
+import { AuthGuard } from './guard/auth.guard';
+
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -63,6 +74,7 @@ export const routes: Routes = [
     path: 'dashboard',
     title: 'Dashboard - EventSpot',
     loadComponent: () => import('../app/pages/dashboard/dashboard/dashboard.component').then((m) => m.DashboardComponent),
+    canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'evenements', pathMatch: 'full' },
       { path: 'evenements',
